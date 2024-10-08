@@ -1,0 +1,13 @@
+language = "nodejs"
+run = "npm run dev"
+entrypoint = "app/page.tsx"
+modules = ["nodejs-20"]
+
+[deployment]
+deploymentTarget = "cloudrun"
+build = ["sh", "-c", "npm run build"]
+run = ["sh", "-c", "npm start"]
+
+[[ports]]
+localPort = 3000
+externalPort = 80

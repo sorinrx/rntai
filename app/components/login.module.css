@@ -1,0 +1,16 @@
+/* login.module.css */
+.button {
+    background-color: #d22630; /* Pantone 1795C */
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  
+  .button:hover {
+    background-color: #b71f2a; /* O nuanță mai închisă pentru hover */
+  }
+  

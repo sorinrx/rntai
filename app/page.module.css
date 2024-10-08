@@ -1,0 +1,62 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: white;
+}
+
+.logo {
+  width: 400px  ; /* Ajustează dimensiunea după necesități */
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 3em; /* Dublat ca mărime */
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.redPill, .bluePill {
+  font-size: 1em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.redPill {
+  background-color: #d22630; /* Pantone 1795C */
+  color: white;
+}
+
+.redPill:hover {
+  background-color: #b71f2a; /* O nuanță mai închisă pentru hover */
+}
+
+.bluePill {
+  background-color: #007BFF; /* Albastru */
+  color: white;
+}
+
+.bluePill:hover {
+  background-color: #0056b3; /* O nuanță mai închisă pentru hover */
+}
+
+.spacer {
+  width: 10px; /* Spațiu între butoane */
+}

@@ -1,0 +1,50 @@
+/* page.module.css */
+.main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.chatContainer {
+  width: 100%;
+  max-width: 800px;
+  height: calc(100% - 50px); /* Ajustați această valoare în funcție de înălțimea promptului web */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  position: absolute;
+  bottom: 50px; /* Această valoare trebuie să fie aceeași cu înălțimea promptului web */
+}
+
+.chat {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  width: 100%;
+  background-color: white;
+}
+
+.buttonContainer button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .chatContainer {
+    height: calc(100% - 40px); /* Ajustați dacă promptul web are o înălțime diferită pe mobil */
+    bottom: 5px; /* Ajustați la fel ca mai sus */
+  }
+}
