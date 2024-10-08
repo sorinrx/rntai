@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { openai } from '../../../../../openai'; // Importăm openai folosind calea relativă corectă
 
 // Send a new message to a thread
 export async function POST(request: NextRequest, { params: { threadId } }: { params: { threadId: string } }) {
