@@ -36,6 +36,19 @@ const Chat = ({
     createThread();
   }, []);
 
+  const Message = ({ role, text }: MessageProps) => {
+    switch (role) {
+      case "user":
+        return <UserMessage text={text} />;
+      case "assistant":
+        return <AssistantMessage text={text} />;
+      case "code":
+        return <CodeMessage text={text} />;
+      default:
+        return null;
+    }
+  };
+  
   const sendMessage = useCallback(async (text: string) => {
     console.log("sendMessage called. isRunning:", isRunning);
 

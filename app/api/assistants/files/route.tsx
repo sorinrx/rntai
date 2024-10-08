@@ -1,30 +1,6 @@
 import { assistantId } from '../../../assistant-config';
 import { openai } from '../../../openai';
 
-// upload file to assistant's vector store
-export async function POST(request: Request) {
-  const formData = await request.formData(); // process file as FormData
-  const file = formData.get("file"); // retrieve the single file from FormData
-
-  if (!file || !(file instanceof File)) {
-    return new Response("Invalid file", { status: 400 });
-  }
-
-  const vectorStoreId = await getOrCreateVectorStore(); // get or create vector store
-
-  // upload using the file stream
-  const openaiFile = await openai.files.create({
-    file: file as File,
-    purpose: "assistants",
-  });
-
-  // add file to vector store
-  await openai.beta.vectorStores.files.create(vectorStoreId, {
-    file_id: openaiFile.id,
-  });
-  return new Response();
-}
-
 // list files in assistant's vector store
 export async function GET() {
   const vectorStoreId = await getOrCreateVectorStore(); // get or create vector store
