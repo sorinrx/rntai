@@ -77,7 +77,7 @@ const Chat = ({
     createThread();
   }, []);
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = useCallback(async (text: string) => {
     console.log("sendMessage called. isRunning:", isRunning);
 
     if (!text.trim()) return;
@@ -188,7 +188,7 @@ const Chat = ({
       setIsRunning(false);
       console.log("Set isRunning to false (finally)");
     }
-  };
+  }, [isRunning, threadId, setMessages, setUserInput, setInputDisabled, setShowButtons, setShowPredefinedButtons, scrollToBottom, appendMessage, appendToLastMessage]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
