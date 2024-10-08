@@ -1,52 +1,46 @@
-"use client";
+import { useSession, signIn, signOut } from 'next-auth/react';
+import Image from 'next/image';
+import config from '../config';
+import Login from './components/login';
+import styles from './page.module.css';
 
-import React from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
-import Login from "./components/login";
-import styles from "./page.module.css";
-import config from '../config'; // importă fișierul de configurare
-
-
-const Home = () => {
+export default function Home() {
   const { data: session, status } = useSession();
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
+  if (status === 'loading') {
+    return <p>Loading...</p>;
   }
 
   if (!session) {
     return (
-      <main className={styles.main}>
-        <img src="/logoRenet.svg" className={styles.logo} alt="Renet Logo" />
-        <div className={styles.title}>RENET AI</div>
+      <div className={styles.container}>
+        <Image src="/logoR.svg" alt="RENET AI" width={100} height={100} />
+        <h1>Asistent AI - RENET</h1>
         <Login />
-      </main>
+      </div>
     );
   }
 
-  if (!config.authorizedEmails.includes(session.user.email)) {
+  if (!config.authorizedEmails.includes(session.user?.email || '')) {
     return (
-      <main className={styles.main}>
-        <div className={styles.title}>Unauthorized access</div>
-        <button className={styles.bluePill} onClick={() => signOut()}>Blue Pill</button>
-      </main>
+      <div className={styles.container}>
+        <h1>Unauthorized access</h1>
+        <button onClick={() => signOut()}>Sign out</button>
+      </div>
     );
   }
 
   return (
-    <main className={styles.main}>
-      <div className={styles.title}>
-        Alege!
-      </div>
-      <div className={styles.container}>
-        <a className={styles.redPill} href="/examples/all">
-          Red Pill
+    <div className={styles.container}>
+      <h1>Alege!</h1>
+      <div className={styles.buttonContainer}>
+        <a href="/examples/all" className={styles.redPill}>
+          Toate exemplele
         </a>
-        <div className={styles.spacer}></div>
-        <button className={styles.bluePill} onClick={() => signOut()}>Blue Pill</button>
+        <button onClick={() => signOut()} className={styles.bluePill}>
+          Sign out
+        </button>
       </div>
-    </main>
+    </div>
   );
-};
-
-export default Home;
+}

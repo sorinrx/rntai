@@ -5,11 +5,16 @@ import { openai } from '../../../openai';
 export async function POST(request: Request) {
   const formData = await request.formData(); // process file as FormData
   const file = formData.get("file"); // retrieve the single file from FormData
+
+  if (!file || !(file instanceof File)) {
+    return new Response("Invalid file", { status: 400 });
+  }
+
   const vectorStoreId = await getOrCreateVectorStore(); // get or create vector store
 
   // upload using the file stream
   const openaiFile = await openai.files.create({
-    file: file,
+    file: file as File,
     purpose: "assistants",
   });
 

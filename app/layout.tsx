@@ -1,29 +1,28 @@
-// app/layout.tsx
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Warnings from "./components/warnings";
-import { assistantId } from "./assistant-config";
-import ClientLayout from "./client-layout";  // Importăm componenta client-side
+import './globals.css';
+import { Inter } from 'next/font/google';
+import Warnings from './components/warnings';
+import { assistantId } from './assistant-config';
 
-
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "Asistent AI - RENET",
-  description: "Asistent OpenAi pentru agentii Renet",
+  title: 'Asistent AI - RENET',
+  description: 'Asistent OpenAi pentru agentii Renet',
   icons: {
-    icon: "/logoR.svg",
+    icon: '/logoR.svg',
   },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ClientLayout>
-          {assistantId ? children : <Warnings />}
-          <img className="logo" src="/logoR.svg" alt="Renet Logo" />
-        </ClientLayout>
+        {assistantId ? children : <Warnings />}
+        <img src="/logoR.svg" alt="Renet Logo" />
       </body>
     </html>
   );
