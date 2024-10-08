@@ -1,4 +1,4 @@
-import openai from '../../../../../openai';
+import { openai } from '../../../../../openai';
 
 // Send a new message to a thread
 export async function POST(request, { params: { threadId } }) {
