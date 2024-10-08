@@ -1,7 +1,7 @@
 // app/api/assistants/threads/[threadId]/messages/route.ts
 
-import { assistantId } from "@/app/assistant-config";
-import { openai } from "@/app/openai";
+import assistantConfig from '../../../../../assistant-config';
+import { openai } from "../../../../../openai";
 
 export const runtime = "nodejs";
 
