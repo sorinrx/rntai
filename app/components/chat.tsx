@@ -1,5 +1,46 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import styles from './chat.module.css';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import styles from "./chat.module.css";
+import Markdown from "react-markdown";
+import { MessageProps, ChatProps } from "./types";
+
+// Definirea componentelor UserMessage, AssistantMessage și CodeMessage
+const UserMessage = ({ text }: { text: string }) => {
+  return <div className={styles.userMessage}>{text}</div>;
+};
+
+const AssistantMessage = ({ text }: { text: string }) => {
+  return (
+    <div className={styles.assistantMessage}>
+      <Markdown>{text}</Markdown>
+    </div>
+  );
+};
+
+const CodeMessage = ({ text }: { text: string }) => {
+  return (
+    <div className={styles.codeMessage}>
+      {text.split("\n").map((line, index) => (
+        <div key={index}>
+          <span>{`${index + 1}. `}</span>
+          {line}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Message = ({ role, text }: MessageProps) => {
+  switch (role) {
+    case "user":
+      return <UserMessage text={text} />;
+    case "assistant":
+      return <AssistantMessage text={text} />;
+    case "code":
+      return <CodeMessage text={text} />;
+    default:
+      return null;
+  }
+};
 
 const Chat = ({
   functionCallHandler = () => Promise.resolve(""),
@@ -36,20 +77,7 @@ const Chat = ({
     createThread();
   }, []);
 
-  const Message = ({ role, text }: MessageProps) => {
-    switch (role) {
-      case "user":
-        return <UserMessage text={text} />;
-      case "assistant":
-        return <AssistantMessage text={text} />;
-      case "code":
-        return <CodeMessage text={text} />;
-      default:
-        return null;
-    }
-  };
-  
-  const sendMessage = useCallback(async (text: string) => {
+  const sendMessage = async (text: string) => {
     console.log("sendMessage called. isRunning:", isRunning);
 
     if (!text.trim()) return;
@@ -160,7 +188,7 @@ const Chat = ({
       setIsRunning(false);
       console.log("Set isRunning to false (finally)");
     }
-  }, [isRunning, threadId, setShowButtons]);
+  };
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
