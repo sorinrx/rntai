@@ -95,7 +95,7 @@ const Chat = ({
     e.preventDefault();
     sendMessage(userInput);
   }, [sendMessage, userInput]);
-   
+
   useEffect(() => {
     if (predefinedQuestion) {
       setUserInput(predefinedQuestion);
@@ -216,28 +216,13 @@ const Chat = ({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    sendMessage(userInput);
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
   };
-  const formData = new FormData();
-  formData.append('content', messageContent);
-  formData.append('file', fileInput.files[0]); // Adăugați fișierul selectat
 
-  fetch('/path/to/api', {
-    method: 'POST',
-    body: formData,
-    headers: {
-      'Accept': 'application/json',
-    }
-  });
   const handleResize = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
