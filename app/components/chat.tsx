@@ -58,13 +58,13 @@ const Chat = ({
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
   useEffect(() => {
     const createThread = async () => {
@@ -75,6 +75,27 @@ const Chat = ({
       setThreadId(data.threadId);
     };
     createThread();
+  }, []);
+
+  const appendToLastMessage = useCallback((text: string) => {
+    setMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages];
+      const lastIndex = updatedMessages.length - 1;
+      const lastMessage = updatedMessages[lastIndex];
+
+      if (lastMessage.role === "assistant") {
+        updatedMessages[lastIndex] = {
+          ...lastMessage,
+          text: lastMessage.text + text,
+        };
+      }
+
+      return updatedMessages;
+    });
+  }, []);
+
+  const appendMessage = useCallback((role: "user" | "assistant" | "code", text: string) => {
+    setMessages((prevMessages) => [...prevMessages, { role, text }]);
   }, []);
 
   const sendMessage = useCallback(async (text: string) => {
@@ -219,27 +240,6 @@ const Chat = ({
   const handlePredefinedQuestion = (question: string) => {
     setUserInput(question);
     sendMessage(question);
-  };
-
-  const appendToLastMessage = (text: string) => {
-    setMessages((prevMessages) => {
-      const updatedMessages = [...prevMessages];
-      const lastIndex = updatedMessages.length - 1;
-      const lastMessage = updatedMessages[lastIndex];
-
-      if (lastMessage.role === "assistant") {
-        updatedMessages[lastIndex] = {
-          ...lastMessage,
-          text: lastMessage.text + text,
-        };
-      }
-
-      return updatedMessages;
-    });
-  };
-
-  const appendMessage = (role: "user" | "assistant" | "code", text: string) => {
-    setMessages((prevMessages) => [...prevMessages, { role, text }]);
   };
 
   return (
