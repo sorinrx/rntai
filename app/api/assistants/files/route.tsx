@@ -1,5 +1,5 @@
 import assistantConfig from '../../../assistant-config';
-import openai from '../../../openai';
+import { openai } from '../../../openai';
 
 // upload file to assistant's vector store
 export async function POST(request) {
